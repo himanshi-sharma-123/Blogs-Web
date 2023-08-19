@@ -29,6 +29,11 @@
   color: red;
 }
 
+.update {
+  cursor: pointer;
+  color: red;
+}
+
 .new {
   flex: 1;
   display: flex;

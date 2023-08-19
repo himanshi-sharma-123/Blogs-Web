@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   //OLD WAY TO FETCH DATA
@@ -88,6 +89,17 @@ const Dashboard = () => {
     }
   };
 
+  const handleUpdate = async (id) => {
+    try {
+      await fetch(`/api/posts/${id}`, {
+        method: "PUT",
+      });
+      mutate();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   if (session.status === "authenticated") {
     return (
       <div className={styles.container}>
@@ -106,9 +118,18 @@ const Dashboard = () => {
                   >
                     X
                   </span>
+                  {/* <span
+                    className={styles.update}
+                    LinkComponent={Link}
+                    to={`/posts/${post.id}`}
+                    onClick={() => handleUpdate(post._id)}
+                  >
+                    U
+                  </span> */}
                 </div>
               ))}
         </div>
+
         <form className={styles.new} onSubmit={handleSubmit}>
           <h1>Add New Post</h1>
           <input type="text" placeholder="Title" className={styles.input} />

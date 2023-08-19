@@ -16,6 +16,21 @@ export const GET = async (request, { params }) => {
   }
 };
 
+export const PUT = async (request, { params }) => {
+  try {
+    const id = params;
+    const { title, desc } = await req.json();
+    await main();
+    const post = await Post.findByIdAndUpdate({
+      data: { title, desc },
+      where: { id },
+    });
+    return NextResponse.json({ message: "Success", post }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ message: "Error", error }, { status: 500 });
+  }
+};
+
 export const DELETE = async (request, { params }) => {
   const { id } = params;
 
